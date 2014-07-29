@@ -30,7 +30,7 @@ public class BPMRestClient {
 		// Create Variables
 		Personendaten person = new Personendaten("admin", "Patrick","Steiner",new java.util.Date(), "p@p.de", "Strasse", 21244, "Hamburg", "iban", "bic","tel");
 		VersichertesObjekt objekt = new VersichertesObjekt(new java.util.Date(), 200, "efh", "strasse", 21244, "Hamburg"); 
-		Vertrag vertrag = new Vertrag();
+		Vertrag vertrag = new Vertrag(0.0, 0, "Premium", "0" );
 		
         // create REST request
         RuntimeEngine engine = restSessionFactory.newRuntimeEngine();
