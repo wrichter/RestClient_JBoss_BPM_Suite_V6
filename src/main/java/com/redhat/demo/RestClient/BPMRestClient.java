@@ -42,7 +42,7 @@ public class BPMRestClient {
         params.put("versichertesObjekt", objekt);
         params.put("vertrag", vertrag);
         
-       ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Hausrat", params);
+       ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Household", params);
 
 //        System.out.println("Started process instance: " + processInstance + " " + (processInstance == null ? "" : processInstance.getId()));
 
