@@ -12,7 +12,6 @@ import org.kie.api.runtime.manager.RuntimeEngine;
 import org.kie.services.client.api.RemoteRestRuntimeFactory;
 import org.kie.api.runtime.process.ProcessInstance;
 
-import com.google.gson.Gson;
 import com.redhat.demo.heisedemo.Personendaten;
 import com.redhat.demo.heisedemo.VersichertesObjekt;
 import com.redhat.demo.heisedemo.Vertrag;
@@ -42,7 +41,7 @@ public class BPMRestClient {
         params.put("versichertesObjekt", objekt);
         params.put("vertrag", vertrag);
         
-       ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Household", params);
+       ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Hausrat", params);
 
 //        System.out.println("Started process instance: " + processInstance + " " + (processInstance == null ? "" : processInstance.getId()));
 
