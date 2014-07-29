@@ -9,32 +9,34 @@ import java.util.Map;
 
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.manager.RuntimeEngine;
-import org.kie.services.client.api.RemoteRestSessionFactory;
+import org.kie.services.client.api.RemoteRestRuntimeFactory;
 import org.kie.api.runtime.process.ProcessInstance;
+
+import com.redhat.demo.heisedemo.Personendaten;
+import com.redhat.demo.heisedemo.VersichertesObjekt;
 
 
 public class BPMRestClient {
 
 	public static void main(String[] args) throws MalformedURLException {
 		
-		RemoteRestSessionFactory restSessionFactory = new RemoteRestSessionFactory("com.redhat.bpms.examples:mortgage:1", // this can be viewed from business-central -> properties of deployed Process
-				 																	new URL("http://localhost:8080/business-central"), 
-				 																	"erics", "bpmsuite");
+		RemoteRestRuntimeFactory restSessionFactory = new RemoteRestRuntimeFactory("com.redhat.demo:HeiseDemo:1.4", // this can be viewed from business-central -> properties of deployed Process
+				 																	new URL("http://localhost:49160/business-central"), 
+				 																	"psteiner", "change12_me");
 
+		// Create Variables
+		Personendaten person = new Personendaten("admin", "Patrick","Steiner",new java.util.Date(), "p@p.de", "Strasse", 21244, "Hamburg", "iban", "bic","tel");
+		VersichertesObjekt objekt = new VersichertesObjekt(new java.util.Date(), 200, "efh", "strasse", 21244, "Hamburg"); 
+		
         // create REST request
         RuntimeEngine engine = restSessionFactory.newRuntimeEngine();
         KieSession ksession = engine.getKieSession();
       
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("name", "Hans Hanussen");
-        params.put("address", "Somewhere");
-        params.put("ssn", 1234567);
-        params.put("income", 40);
-        params.put("price", 400000);
-        params.put("downPayment", 100000);
-        params.put("amortization", 10);
+        params.put("personendaten", person);
+        params.put("versichertesObjekt", objekt);
         
-        ProcessInstance processInstance = ksession.startProcess("com.redhat.bpms.examples.mortgage.MortgageApplication", params);
+        ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Hausrat", params);
 
         System.out.println("Started process instance: " + processInstance + " " + (processInstance == null ? "" : processInstance.getId()));
 
