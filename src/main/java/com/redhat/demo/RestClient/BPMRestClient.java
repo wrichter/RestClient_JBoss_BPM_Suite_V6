@@ -12,12 +12,15 @@ import org.kie.api.runtime.manager.RuntimeEngine;
 import org.kie.services.client.api.RemoteRestRuntimeFactory;
 import org.kie.api.runtime.process.ProcessInstance;
 
+import com.google.gson.Gson;
 import com.redhat.demo.heisedemo.Personendaten;
 import com.redhat.demo.heisedemo.VersichertesObjekt;
+import com.redhat.demo.heisedemo.Vertrag;
 
 
 public class BPMRestClient {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws MalformedURLException {
 		
 		RemoteRestRuntimeFactory restSessionFactory = new RemoteRestRuntimeFactory("com.redhat.demo:HeiseDemo:1.4", // this can be viewed from business-central -> properties of deployed Process
@@ -27,19 +30,23 @@ public class BPMRestClient {
 		// Create Variables
 		Personendaten person = new Personendaten("admin", "Patrick","Steiner",new java.util.Date(), "p@p.de", "Strasse", 21244, "Hamburg", "iban", "bic","tel");
 		VersichertesObjekt objekt = new VersichertesObjekt(new java.util.Date(), 200, "efh", "strasse", 21244, "Hamburg"); 
+		Vertrag vertrag = new Vertrag();
 		
         // create REST request
         RuntimeEngine engine = restSessionFactory.newRuntimeEngine();
         KieSession ksession = engine.getKieSession();
       
         Map<String, Object> params = new HashMap<String, Object>();
+        
         params.put("personendaten", person);
         params.put("versichertesObjekt", objekt);
+        params.put("vertrag", vertrag);
         
-        ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Hausrat", params);
+       ProcessInstance processInstance = ksession.startProcess("HeiseDemo.Hausrat", params);
 
-        System.out.println("Started process instance: " + processInstance + " " + (processInstance == null ? "" : processInstance.getId()));
+//        System.out.println("Started process instance: " + processInstance + " " + (processInstance == null ? "" : processInstance.getId()));
 
+        System.out.print("foo");
 	}
 
 }
